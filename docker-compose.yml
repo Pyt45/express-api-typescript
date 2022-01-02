@@ -16,6 +16,17 @@ services:
       - "8080:8080"
     networks:
       - backend
+  app:
+      build: .
+      image: app-ts
+      ports:
+        - "9000:9000"
+      env_file:
+        - .env
+      depends_on:
+        - db
+      networks:
+        - backend
 
 networks:
   backend:

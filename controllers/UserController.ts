@@ -48,10 +48,11 @@ export class UserController {
                 res.status(404).json({
                     msg: 'Invalid credientiels'
                 });
-            if (user && password != user.password)
+            if (user && password != user.password) {
                 res.status(404).json({
                     msg: 'Invalid credientiels'
                 });
+            }
             let token;
             const payload = {
                 user: {
@@ -74,9 +75,7 @@ export class UserController {
     }
 
     logout = async (req: Request, res: Response) => {
-        try {
-            // res.status(200).send("hello there");
-            // console.log("hello there");
+        try { 
             await res.clearCookie('access_token');
             res.status(200).json({
                     msg: 'Successuflly logged out'

@@ -15,11 +15,12 @@ handleRouter.post('/user/logout', auth, userController.logout);
 
 const storage = multer.diskStorage({
     destination: function(req: Request, file, cb) {
-        cb(null, '/uploads/')
+        cb(null, 'uploads/')
     },
     filename: function(req: Request, file, cb) {
         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-        cb(null, file.fieldname + uniqueSuffix);
+        console.log(file);
+        cb(null, file.fieldname + uniqueSuffix + '.' + file.originalname.split('.')[1]);
     }
 });
 
@@ -37,9 +38,9 @@ const fileFilter = (req: Request, file: any, cb: any) => {
 const upload = multer({ storage: storage, fileFilter: fileFilter });
 
 handleRouter.post('/product/add', auth, productController.addProduct);
-handleRouter.put('/product/:id', auth, productController.updateProduct)
-handleRouter.delete('/product/:id', auth, productController.deleteProduct)
-handleRouter.delete('/products', auth, productController.deleteAllProducts)
-handleRouter.get('/product/:id', auth, productController.getProductById)
-handleRouter.get('/products', auth, productController.getProducts)
+handleRouter.put('/product/:id', auth, productController.updateProduct);
+handleRouter.delete('/product/:id', auth, productController.deleteProduct);
+handleRouter.delete('/products', auth, productController.deleteAllProducts);
+handleRouter.get('/product/:id', auth, productController.getProductById);
+handleRouter.get('/products', auth, productController.getProducts);
 handleRouter.patch('/product/addimage/:id', auth, upload.single('avatar'), productController.addImageToProduct);

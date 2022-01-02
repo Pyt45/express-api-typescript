@@ -12,6 +12,6 @@ User.init({
     password: DataTypes.STRING,
 }, { sequelize, modelName: 'User' });
 
-(async () => {
-    sequelize.sync();
-})();
+// (async () => {
+//     sequelize.sync();
+// })();
